@@ -18,6 +18,7 @@ import java.util.Map;
  * @create ---
  */
 public class login {
+    public user nowUser;
     JFrame jf = new JFrame("登录");
 
     //组装
@@ -42,9 +43,9 @@ public class login {
                                 String username = ujtf.getText();
                                 String password = pjtf.getText();
                                 //查询数据库,成功则把new用户对象,保存数据,根据其权限显示内容(打开新页面)
-                                user instance = jdbcUtils.getInstance(
+                                nowUser = jdbcUtils.getInstance(
                                         "select * from `user` where username=? and password=?", username, password);
-                                System.out.println(instance);
+                                System.out.println(nowUser);
                                 jf.dispose();
                             }
                         }),
