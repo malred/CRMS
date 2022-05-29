@@ -19,13 +19,4 @@ public class user {
     private String describe;
     private String security;
     private Number joinid;
-
-    public user(Object[] columnVals) {
-        id= (Number) columnVals[0];
-        username= (String) columnVals[1];
-        password= (String) columnVals[2];
-        describe= (String) columnVals[3];
-        security= (String) columnVals[4];
-        joinid= (Number) columnVals[5];
-    }
 }

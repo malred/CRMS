@@ -43,7 +43,7 @@ public class login {
                                 String username = ujtf.getText();
                                 String password = pjtf.getText();
                                 //查询数据库,成功则把new用户对象,保存数据,根据其权限显示内容(打开新页面)
-                                nowUser = jdbcUtils.getInstance(
+                                nowUser = jdbcUtils.getOne(
                                         "select * from `user` where username=? and password=?", username, password);
                                 System.out.println(nowUser);
                                 jf.dispose();
