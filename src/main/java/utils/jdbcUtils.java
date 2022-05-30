@@ -17,7 +17,7 @@ import java.util.Properties;
 public class jdbcUtils {
     public static Connection getConn() {
         try {
-            //导入配置文件
+            //导入配置文件(用类加载器)
             InputStream is =
                     jdbcUtils.class.getClassLoader().getResourceAsStream("conn.properties");
             Properties pro = new Properties();
@@ -105,6 +105,13 @@ public class jdbcUtils {
         }
         return null;
     }
+
+    /**
+     * 获取是否有这个用户
+     * @param password  是否加入密码查询
+     * @param args
+     * @return
+     */
     public static user getUser(boolean password,Object... args) {
         String sql = "";
         if(!password)
@@ -193,6 +200,28 @@ public class jdbcUtils {
             jdbcUtils.close(conn, ps, rs);
         }
         return null;
+    }
+
+    /**
+     * 通用增删改
+     * @param sql
+     * @param args
+     */
+    public static void change(String sql,Object...args){
+        Connection conn = getConn();
+        PreparedStatement ps = null;
+        try {
+            ps = conn.prepareStatement(sql);
+            for (int i = 0; i < args.length; i++) {
+                //逐个填入参数,索引从1开始
+                ps.setObject(i+1,args[i]);
+            }
+            ps.execute();//执行
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }finally {
+            close(conn,ps);
+        }
     }
     @Test
     public void t(){

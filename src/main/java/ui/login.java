@@ -18,9 +18,8 @@ import java.util.Map;
  * @create ---
  */
 public class login {
-    public user nowUser;
+    public static user nowUser = null;
     JFrame jf = new JFrame("登录");
-
     //组装
     public void init() {
         //用户名box
@@ -46,7 +45,14 @@ public class login {
                                 nowUser = jdbcUtils.getOne(
                                         "select * from `user` where username=? and password=?", username, password);
                                 System.out.println(nowUser);
-                                jf.dispose();
+                                if(nowUser.getUsername()!=null) {
+                                    //如果存在
+                                    //打开新窗口
+                                    new systemUi().init();
+                                    jf.dispose();
+                                }else {
+                                    JOptionPane.showMessageDialog(jf,"用户名或密码错误");
+                                }
                             }
                         }),
                         (new ActionListener() { //注册
@@ -65,6 +71,7 @@ public class login {
                 pb, Box.createVerticalStrut(30),
                 btnB, Box.createVerticalStrut(80)});
         jf.add(all);
+        jf.setResizable(false);//不可更改宽高
         jf.setBounds(650, 350, 500, 350);//位置
         jf.setVisible(true);//可见
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//默认关闭按钮监听

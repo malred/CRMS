@@ -42,6 +42,7 @@ public class registUi {
                                 }
                                 else {
                                     //插入数据
+                                    jdbcUtils.change("insert into user(username,password) value(?,?)",username,password);
                                     JOptionPane.showMessageDialog(jf, "注册成功,跳转登录页面");
                                     new login().init();
                                     jf.dispose();
@@ -60,17 +61,18 @@ public class registUi {
         Box vb = Box.createVerticalBox();//整体
         mybox.addAll(
                 vb,
-                Box.createVerticalStrut(70),
+                Box.createVerticalStrut(105),
                 ub,
-                Box.createVerticalStrut(20),
+                Box.createVerticalStrut(30),
                 pb,
-                Box.createVerticalStrut(20),
+                Box.createVerticalStrut(30),
                 hBoxWithBtn,
-                Box.createVerticalStrut(70)
+                Box.createVerticalStrut(105)
         );
+        jf.setResizable(false);
         jf.add(vb);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jf.setBounds(650, 350, 400, 500);
+        jf.setBounds(650, 350, 400, 400);
     }
 }

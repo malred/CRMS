@@ -18,5 +18,10 @@ public class user {
     private String password;
     private String describe;
     private String security;
-    private Number joinid;
+    public Object get(int index){ //配合jtable展示数据
+        if(index==0) return username;
+        if(index==1) return password;
+        if(index==2) return security;
+        else return null;
+    }
 }

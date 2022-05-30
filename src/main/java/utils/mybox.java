@@ -21,6 +21,7 @@ public class mybox {
         JLabel jl = new JLabel(label);
         JTextField jTextField = new JTextField(LColumn);
         nowText = jTextField;
+        //水平分割
         horizontalBox.add(Box.createHorizontalStrut(40));
         horizontalBox.add(jl);
         horizontalBox.add(Box.createHorizontalStrut(20));
@@ -33,11 +34,12 @@ public class mybox {
         for (int i = 0; i < btns.length; i++) {
             btns[i].addActionListener(listener[i]);
             horizontalBox.add(btns[i]);
+            horizontalBox.add(Box.createHorizontalStrut(20));
         }
         return horizontalBox;
     }
     //批量添加按钮和监听器
-    public static Box createVBoxWithBtn(ActionListener listener[],JButton...btns){
+    public static Box createVBoxWithBtn(JButton[] btns,ActionListener listener[]){
         Box vBox = Box.createVerticalBox();
         for (int i = 0; i < btns.length; i++) {
             btns[i].addActionListener(listener[i]);
