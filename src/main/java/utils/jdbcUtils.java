@@ -115,9 +115,9 @@ public class jdbcUtils {
     public static user getUser(boolean password,Object... args) {
         String sql = "";
         if(!password)
-        sql += "select * from user where username=? ";
+        sql += "select * from user where uid=?";
         else
-            sql += "select * from user where username=? and password=?";
+            sql += "select * from user where uid=? and password=?";
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

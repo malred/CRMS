@@ -17,11 +17,14 @@ public class registUi {
     JFrame jf = new JFrame();
 
     public void init() {
-        //用户名box
-        Box ub = mybox.createHBoxWithLabelTextFile("用户名:", 15);
+        //学号box
+        Box ub = mybox.createHBoxWithLabelTextFile("学    号:", 15);
         JTextField ujtf = mybox.nowText;
+        //姓名box
+        Box nb = mybox.createHBoxWithLabelTextFile("姓    名:", 15);
+        JTextField njtf = mybox.nowText;
         //密码box
-        Box pb = mybox.createHBoxWithLabelTextFile("密     码:", 15);
+        Box pb = mybox.createHBoxWithLabelTextFile("密    码:", 15);
         JTextField pjtf = mybox.nowText;
         Box hBoxWithBtn = mybox.createHBoxWithBtn(
                 new JButton[]{
@@ -33,16 +36,18 @@ public class registUi {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 //注册
-                                String username = ujtf.getText();
+                                String uid = ujtf.getText();
                                 String password = pjtf.getText();
-                                user u = jdbcUtils.getUser(false, username);
-                                if (u.getId() != null) { //如果已存在
+                                String username = njtf.getText();
+                                user u = jdbcUtils.getUser(false, uid);
+                                if (u.getId() != null || uid.equals("")) { //如果已存在
                                     System.out.println(u);
-                                    JOptionPane.showMessageDialog(jf, "用户名已存在");
+                                    JOptionPane.showMessageDialog(jf, "学号错误");
+                                    return;
                                 }
                                 else {
                                     //插入数据
-                                    jdbcUtils.change("insert into user(username,password) value(?,?)",username,password);
+                                    jdbcUtils.change("insert into user(username,password,uid) value(?,?,?)", username, password, uid);
                                     JOptionPane.showMessageDialog(jf, "注册成功,跳转登录页面");
                                     new login().init();
                                     jf.dispose();
@@ -63,6 +68,8 @@ public class registUi {
                 vb,
                 Box.createVerticalStrut(105),
                 ub,
+                Box.createVerticalStrut(30),
+                nb,
                 Box.createVerticalStrut(30),
                 pb,
                 Box.createVerticalStrut(30),

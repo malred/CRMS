@@ -22,11 +22,11 @@ public class login {
     JFrame jf = new JFrame("登录");
     //组装
     public void init() {
-        //用户名box
-        Box ub = mybox.createHBoxWithLabelTextFile("用户名:", 15);
+        //学号box
+        Box ub = mybox.createHBoxWithLabelTextFile("学    号:", 15);
         JTextField ujtf = mybox.nowText;
         //密码box
-        Box pb = mybox.createHBoxWithLabelTextFile("密     码:", 15);
+        Box pb = mybox.createHBoxWithLabelTextFile("密    码:", 15);
         JTextField pjtf = mybox.nowText;
         //按钮box
         Box btnB = mybox.createHBoxWithBtn(
@@ -38,20 +38,21 @@ public class login {
                         (new ActionListener() { //登录
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                //获取用户名和密码
-                                String username = ujtf.getText();
+                                //获取学号和密码
+                                String uid = ujtf.getText();
                                 String password = pjtf.getText();
                                 //查询数据库,成功则把new用户对象,保存数据,根据其权限显示内容(打开新页面)
                                 nowUser = jdbcUtils.getOne(
-                                        "select * from `user` where username=? and password=?", username, password);
+                                        "select * from `user` where uid=? and password=?", uid, password);
                                 System.out.println(nowUser);
-                                if(nowUser.getUsername()!=null) {
+                                if(nowUser.getUsername()!=null && !uid.equals("")) {//防止空数据
+//                                if(nowUser.getUsername()!=null || nowUser.getUid()!="0") {
                                     //如果存在
                                     //打开新窗口
                                     new systemUi().init();
                                     jf.dispose();
                                 }else {
-                                    JOptionPane.showMessageDialog(jf,"用户名或密码错误");
+                                    JOptionPane.showMessageDialog(jf,"学号或密码错误");
                                 }
                             }
                         }),

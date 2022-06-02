@@ -2,6 +2,7 @@ package ui;
 
 import entity.user;
 import utils.jdbcUtils;
+import utils.mybox;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -22,13 +23,13 @@ public class userManage {
 
     public void init() {
         //创建一维数组,存放标题
-        Object[] titles = {"姓名", "密码", "权限"};
-        List<user> users = jdbcUtils.getNoOne("select username,password,security from user where security=? or security=?",
-                "user", "company");
+        Object[] titles = {"姓名", "密码", "学号", "其他信息"};
+        List<user> users = jdbcUtils.getNoOne("SELECT username,`password`,uid,`describe` FROM USER WHERE `security`=?",
+                "user");
         for (
                 int i = 0;
                 i < titles.length; i++) {
-            titleV.add(titles[i]);
+            titleV.add(titles[i]);//标题
         }
         for (
                 int i = 0; i < users.size(); i++) {
@@ -38,25 +39,45 @@ public class userManage {
             }
             dataV.add(t);
         }
-
         //        JTable jtable = new JTable(data,titles);
         myTableModel myTableModel = new myTableModel();
         JTable jtable = new JTable(myTableModel);
-        jf.add(new
+        jf.add(new JScrollPane(jtable));
+        Box hb = mybox.createHBoxWithBtn(
+                new JButton[]{
+                        new JButton("更改选中数据"),
+                        new JButton("插入数据"),
+                        new JButton("删除选中的数据"),
+                },
+                new ActionListener[]{
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                int sr = jtable.getSelectedRow();
+                                Object uid = myTableModel.getValueAt(sr, 2);
+                                System.out.println(uid);
+                                //根据学号获取user类实例
+                                user one = jdbcUtils.getOne("select * from user where uid=?", uid);
+                                System.out.println(one);
+                                new uManageDbUi().init(one.getUsername(),one.getUsername(),one.getUid());
+                                jf.dispose();
+                            }
+                        },
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
 
-                JScrollPane(jtable));
-        JButton jb = new JButton("获取选中行的数据");
-        jb.addActionListener(new
+                            }
+                        },
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
 
-                                     ActionListener() {
-                                         @Override
-                                         public void actionPerformed(ActionEvent e) {
-                                             int sr = jtable.getSelectedRow();
-                                             Object valueAt = myTableModel.getValueAt(sr, 0);
-                                             System.out.println(valueAt);
-                                         }
-                                     });
-        jf.add(jb, BorderLayout.SOUTH);
+                            }
+                        }
+                }
+        );
+        jf.add(hb, BorderLayout.SOUTH);
         jf.setBounds(650, 350, 400, 400);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setVisible(true);
