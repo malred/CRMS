@@ -31,7 +31,8 @@ public class studentUi {
         //按钮
         Box hBoxWithBtn = mybox.createHBoxWithBtn(
                 new JButton[]{
-                        new JButton("修改信息")
+                        new JButton("修改信息"),
+                        new JButton("返回登录页面")
                 },
                 new ActionListener[]{
                         new ActionListener() {
@@ -39,6 +40,13 @@ public class studentUi {
                             public void actionPerformed(ActionEvent e) {
                                 jf.dispose();
                                 new stuManage().init(nowUser);
+                            }
+                        },
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                jf.dispose();
+                                new login().init();
                             }
                         }
                 }
