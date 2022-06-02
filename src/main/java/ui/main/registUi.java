@@ -1,13 +1,13 @@
-package ui;
+package ui.main;
 
 import entity.user;
+import ui.main.login;
 import utils.jdbcUtils;
 import utils.mybox;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 /**
  * @author malguy-wang sir

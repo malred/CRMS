@@ -1,17 +1,13 @@
-package ui;
+package ui.main;
 
 import entity.user;
-import javafx.scene.layout.VBox;
 import utils.jdbcUtils;
 import utils.mybox;
 
-import javax.rmi.CORBA.ClassDesc;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author malguy-wang sir

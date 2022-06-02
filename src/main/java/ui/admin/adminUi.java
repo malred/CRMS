@@ -1,17 +1,11 @@
-package ui;
+package ui.admin;
 
-import entity.user;
-import utils.jdbcUtils;
+import ui.admin.userManage;
 import utils.mybox;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 /**
  * 管理员:管理企业和学生账户/招聘信息分类管理(专业/岗位)/发布公告/发布企业招聘/审核招聘

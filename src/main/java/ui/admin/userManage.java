@@ -1,4 +1,4 @@
-package ui;
+package ui.admin;
 
 import entity.user;
 import utils.jdbcUtils;
@@ -55,24 +55,33 @@ public class userManage {
                             public void actionPerformed(ActionEvent e) {
                                 int sr = jtable.getSelectedRow();
                                 Object uid = myTableModel.getValueAt(sr, 2);
-                                System.out.println(uid);
+//                                System.out.println(uid);
                                 //根据学号获取user类实例
                                 user one = jdbcUtils.getOne("select * from user where uid=?", uid);
-                                System.out.println(one);
-                                new uManageDbUi().init(one.getUsername(),one.getUsername(),one.getUid());
+//                                System.out.println(one);
+                                new uManageDbUi().init(one);
                                 jf.dispose();
                             }
                         },
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-
+                                new uManageDbUi().init();
                             }
                         },
                         new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-
+                                int sr = jtable.getSelectedRow();
+                                Object uid = myTableModel.getValueAt(sr, 2);
+                                System.out.println(uid);
+                                user one = jdbcUtils.getOne("select * from user where uid=?", uid);
+                                System.out.println(one);
+                                if (one != null || !one.getId().equals("") || one.getId() != null || !one.getId().equals("")) {
+                                    jdbcUtils.change("delete from user where id=?", one.getId());
+                                    jf.dispose();
+                                    new userManage().init();
+                                }
                             }
                         }
                 }
