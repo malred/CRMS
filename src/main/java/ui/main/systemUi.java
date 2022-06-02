@@ -20,7 +20,7 @@ public class systemUi {
             //如果是管理员
             new adminUi().init();
         }
-        if(nowUser.getSecurity().equals("student")){
+        else if(nowUser.getSecurity().equals("student")){
             //如果是学生
             new studentUi().init();
         }

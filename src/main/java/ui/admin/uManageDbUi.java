@@ -74,9 +74,9 @@ public class uManageDbUi {
         //jlabel和输入框
         Box uhb = mybox.createHBoxWithLabelTextFile("姓    名", 15);
         JTextField utf = mybox.nowText;
-        Box nhb = mybox.createHBoxWithLabelTextFile("密    码", 15);
+        Box phb = mybox.createHBoxWithLabelTextFile("密    码", 15);
         JTextField ptf = mybox.nowText;
-        Box phb = mybox.createHBoxWithLabelTextFile("学    号", 15);
+        Box nhb = mybox.createHBoxWithLabelTextFile("学    号", 15);
         JTextField ntf = mybox.nowText;
         //上面三个加进垂直容器
         Box vb = Box.createVerticalBox();
@@ -93,8 +93,8 @@ public class uManageDbUi {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String tusername = utf.getText();
-                String tuid = ntf.getText();
                 String tpassword = ptf.getText();
+                String tuid = ntf.getText();
                 if(!tpassword.equals("")|| !tusername.equals("") || !tuid.equals("") ) {
                     jdbcUtils.change("insert into user(username,password,uid) value(?,?,?)", tusername, tpassword, tuid);
                     jf.dispose();

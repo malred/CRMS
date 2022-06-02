@@ -24,13 +24,13 @@ public class stuManage {
         ntf.setText(u.getUsername());
         Box pbx = mybox.createHBoxWithLabelTextFile("密    码", 15);
         JTextField ptf = mybox.nowText;
-        ntf.setText(u.getPassword());
+        ptf.setText(u.getPassword());
         Box ibx = mybox.createHBoxWithLabelTextFile("信    息", 15);
         JTextField itf = mybox.nowText;
-        ntf.setText(u.getDescribe());
+        itf.setText(u.getDescribe());
         Box ubx = mybox.createHBoxWithLabelTextFile("学    号", 15);
         JTextField utf = mybox.nowText;
-        ntf.setText(u.getUid());
+        utf.setText(u.getUid());
         //按钮
         Box hBoxWithBtn = mybox.createHBoxWithBtn(
                 new JButton[]{
@@ -42,12 +42,12 @@ public class stuManage {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 String tusername = ntf.getText();
-                                String tuid = utf.getText();
                                 String tpassword = ptf.getText();
+                                String tuid = utf.getText();
                                 String tdescribe = itf.getText();
                                 if (!tuid.equals("") || !tusername.equals("") || !tpassword.equals("") || !tdescribe.equals("")) {
                                     jdbcUtils.change("UPDATE USER SET `username`=?,PASSWORD=?,uid=?,`describe`=? WHERE id=?", tusername, tpassword, tuid, tdescribe, u.getId());
-                                    if (!tpassword.equals(u.getPassword())) {
+                                    if (!tpassword.equals("") && !tpassword.equals(u.getPassword())) {
                                         JOptionPane.showMessageDialog(jf, "检测到密码修改");
                                         jf.dispose();
                                         new login().init();

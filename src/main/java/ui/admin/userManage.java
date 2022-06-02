@@ -24,8 +24,8 @@ public class userManage {
     public void init() {
         //创建一维数组,存放标题
         Object[] titles = {"姓名", "密码", "学号", "其他信息"};
-        List<user> users = jdbcUtils.getNoOne("SELECT username,`password`,uid,`describe` FROM USER WHERE `security`=?",
-                "user");
+        List<user> users = jdbcUtils.getNoOne("SELECT username,`password`,uid,`describe` FROM USER WHERE `security`=? or `security`=?",
+                "student","admin");
         for (
                 int i = 0;
                 i < titles.length; i++) {
@@ -48,6 +48,7 @@ public class userManage {
                         new JButton("更改选中数据"),
                         new JButton("插入数据"),
                         new JButton("删除选中的数据"),
+                        new JButton("返回"),
                 },
                 new ActionListener[]{
                         new ActionListener() {
@@ -83,11 +84,18 @@ public class userManage {
                                     new userManage().init();
                                 }
                             }
+                        },
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                jf.dispose();
+                                new adminUi().init();
+                            }
                         }
                 }
         );
         jf.add(hb, BorderLayout.SOUTH);
-        jf.setBounds(650, 350, 400, 400);
+        jf.setBounds(650, 350, 500, 400);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jf.setVisible(true);
     }

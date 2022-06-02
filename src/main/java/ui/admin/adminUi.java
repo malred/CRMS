@@ -1,8 +1,10 @@
 package ui.admin;
 
 import ui.admin.userManage;
+import ui.main.login;
 import utils.mybox;
 
+import javax.security.auth.login.LoginContext;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,7 +22,8 @@ public class adminUi {
         //按钮
         Box user = mybox.createVBoxWithBtn(
                 new JButton[]{
-                        new JButton("用户管理")
+                        new JButton("用户管理"),
+                        new JButton("返回登陆界面")
                 },
                 new ActionListener[]{
                         new ActionListener() {
@@ -29,6 +32,13 @@ public class adminUi {
                                 //打开对应系统
                                 new userManage().init();
                                 jf.dispose();
+                            }
+                        },
+                        new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                jf.dispose();
+                                new login().init();
                             }
                         }
                 }
